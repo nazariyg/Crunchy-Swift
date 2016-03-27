@@ -76,12 +76,13 @@ let val = optValue ?? 1234  // nil coalescing
 
 ## Constants & Variables
 
+* `let` is the initial candidate, `var` is only used as a necessity
+
 ```swift
 
 let constant = 6
 var variable = 7
 variable = 8
-// `let` is the initial candidate, `var` is a necessity
 
 // string interpolation
 let apples = 3
