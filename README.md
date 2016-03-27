@@ -309,8 +309,9 @@ john.residence?[0].name
 
 ```
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Control flow.
+## Control Flow
+
+```swift
 
 // if
 if strValue.lowercaseString == "HELLO, there!".lowercaseString
@@ -435,8 +436,11 @@ else
     // Fall back to earlier iOS and OS X APIs
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Functional.
+```
+
+## Functional
+
+```swift
 
 // function and default parameter values
 func aFunctionWithExternalParamName0
@@ -580,17 +584,16 @@ func serveCustomer (@autoclosure customerProvider:(() -> String))
 }
 serveCustomer("Joe".uppercaseString)  // call to `uppercaseString` is delayed
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Enumerations.
+```
 
-/*
+## Enumerations
 
 * first-class type (support initializers, methods, ...)
 * support computed properties only
 * passed by copy
 * mutating methods can substitute the value with another one by assigning to `self`
 
-*/
+```swift
 
 enum CompassPoint
 {
@@ -678,6 +681,8 @@ indirect enum ArithmeticExpression
     case Addition(ArithmeticExpression, ArithmeticExpression)
     case Multiplication(ArithmeticExpression, ArithmeticExpression)
 }
+
+```
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Classes.
