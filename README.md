@@ -5,7 +5,7 @@
 ```swift
 
 print("Hello there!")
-print("He", "llo", separator: "", terminator: " there!")
+print("He", "llo", separator: "", terminator: " there!")  // "Hello there!"
 
 print("one"); print("two")
 
