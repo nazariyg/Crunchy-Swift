@@ -194,6 +194,10 @@ for (index, value) in anArray2.enumerate()
     //
 }
 
+```
+
+```swift
+
 // dictionary
 var aDict = [
     "one": 1,
@@ -225,6 +229,10 @@ aDict["three"] = 33
 aDict.removeValueForKey("two")  // or aDict["two"] = nil
 print(aDict.count)
 var anotherDict = [String: Int]()
+
+```
+
+```swift
 
 // set
 var letters = Set<Character>()
@@ -668,7 +676,7 @@ enum CompassPoint : String
     case North, South, East, West  // implicitly assigned raw values ("North", ...)
 }
 
-// recursive Enumerations
+// recursive enumerations
 enum ArithmeticExpression
 {
     case Number(Int)
@@ -684,17 +692,14 @@ indirect enum ArithmeticExpression
 
 ```
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Classes.
-
-/*
+## Classes
 
 * objects are passed by reference ("reference type")
 * subclasses can override both stored and computed properties (and add a setter)
 * subclasses can add property observers to inherited properties
 * overriding can be prevented with `final` modifier; `final class` prevents subclassing
 
-*/
+```swift
 
 class ClassA
 {
@@ -861,10 +866,9 @@ class DataManager
     var data = [String]()
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Structures.
+```
 
-/*
+## Structures
 
 * objects are passed by copy ("value type"), same as with enumerations
 * initializers are generated automatically from properties ("memberwise initializers")
@@ -872,9 +876,9 @@ class DataManager
 * mutating methods can substitute the object with another one by assigning to `self`
 * cannot inherit from another structure, hence no type casting
 * no `deinit`
-* String, Array, Dictionary, and Set are structures (copying is "smart")
+* `String`, `Array`, `Dictionary`, and `Set` are structures (copying is "smart")
 
-*/
+```swift
 
 struct StructA
 {
@@ -897,10 +901,9 @@ var s = StructA()
 s.returnProp1()
 s.returnProp2()
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Initialization & Deinitialization
+```
 
-/*
+## Initialization & Deinitialization
 
 * when setting initial value for a stored property within an initializer, the value is set without calling any property observers
 * specifying default property value as part of the property's declaration is preferable to specifying the property's value in the initializer
@@ -924,7 +927,7 @@ s.returnProp2()
 * deinitializers are only available on class types
 * Swift automatically provides a default initializer without any arguments for any structure or base class that provides default values for all of its properties and does not provide at least one initializer itself
 
-*/
+```swift
 
 class ClassA
 {
@@ -1012,22 +1015,24 @@ class SomeClass
     }
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// String & Weak References.
+```
 
-/*
+## String & Weak References
 
-`weak` reference is used whenever it is valid for that reference to become nil at some point during its lifetime; conversely, `unowned` reference is used when it is assumed to **always** have a value because the referenced object(s) never goes out of existence while the reference is in use
+* `weak` reference is used whenever it is valid for that reference to become nil at some point during its lifetime; conversely, `unowned` reference is used when it is assumed to **always** have a value because the referenced object(s) never goes out of existence while the reference is in use
 
-*/
+```swift
 
 // capture list
 let closure = { [unowned self, weak delegate = self.delegate!] in
     // closure body goes here
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Subscripts.
+```
+
+## Subscripts
+
+```swift
 
 subscript (index:Int) -> Int
 {
@@ -1050,15 +1055,14 @@ subscript (row:Int, column:Int) -> Double
     //
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Extensions.
+```
 
-/*
+## Extensions
 
 * can: add computed instance properties and computed type properties, define instance methods and type methods, provide new initializers, define subscripts, define and use new nested types, make an existing type conform to a protocol
 * cannot: override existing functionality
 
-*/
+```swift
 
 extension SomeType
 {
@@ -1090,10 +1094,9 @@ extension Int
 var someInt = 3
 someInt.square()
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Protocols.
+```
 
-/*
+## Protocols
 
 * a protocol defines a blueprint of methods, properties, and other requirements that suit a particular task or piece of functionality
 * a protocol can be extended to provide default implementations for some functionality
@@ -1102,7 +1105,7 @@ someInt.square()
 * it is possible to extend an existing type to adopt and conform to a new protocol
 * one can use the `is` and `as` operators to check for protocol conformance, and to cast to a specific protocol
 
-*/
+```swift
 
 protocol ProtocolA
 {
@@ -1271,8 +1274,11 @@ extension CollectionType where Generator.Element:TextRepresentable
     }
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Generics.
+```
+
+## Generics
+
+```swift
 
 func aGenFunc<T> (param:T) -> T
 {
@@ -1363,17 +1369,16 @@ struct IntStack : Container
     }
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Error Handling
+```
 
-/*
+## Error Handling
 
 * errors are represented by values of types that conform to the ErrorType protocol
 * a throwing function propagates errors that are thrown inside of it to the scope from which it's called
 * if none of the catch clauses handle the error, the error propagates to the surrounding scope
 * `defer` statement lets execute a set of statements just before code execution leaves the current block of code (including via `throw`, `return`, `break` etc.); deferred actions are executed in reverse order of how they are specified
 
-*/
+```swift
 
 func makeASandwich () throws -> ReturnType
 {
@@ -1465,10 +1470,9 @@ let age = -3
 assert(age >= 0, "A person's age cannot be less than zero")
 assert(age >= 0)
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Access Control
+```
 
-/*
+## Access Control
 
 * `public` access enables entities to be used within any source file from their defining module, and also in a source file from another module that imports the defining module. One typically uses public access when specifying the public interface to a framework.
 * `internal` access enables entities to be used within any source file from their defining module, but not in any source file outside of that module. One typically uses internal access when defining an app's or a framework's internal structure.
@@ -1483,7 +1487,7 @@ assert(age >= 0)
 * a subclass cannot have a higher access level than its superclass
 * a default initializer has the same access level as the type it initializes, unless that type is defined as `public` in which case the implicitly used access level is `internal`
 
-*/
+```swift
 
 // for stored or computed property, one can give a setter a lower access level than its
 // corresponding getter
@@ -1492,8 +1496,11 @@ struct TrackedString
     private(set) var numberOfEdits = 0  // or `public private(set)`
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Operator Overloading
+```
+
+## Operator Overloading
+
+```swift
 
 struct Vector2D
 {
@@ -1532,3 +1539,5 @@ func != (left:Vector2D, right:Vector2D) -> Bool
 // custom operators are declared at a global level using `operator` keyword, and are marked
 // with the `prefix`, `infix` or `postfix` modifiers
 prefix operator +++ {}
+
+```
