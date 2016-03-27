@@ -65,11 +65,11 @@ typealias MyType = UInt16
 
 ```swift
 
-5.0 % 2.0 == 1.0  // unlike in C
-a..<b  // half-open range operator, non-inclusive
-a...b  // closed range operator, inclusive
-if x = y  // not allowed
-a &+ b  // allow value overflow
+5.0 % 2.0                   // 1.0, unlike in C
+a..<b                       // half-open range operator, non-inclusive
+a...b                       // closed range operator, inclusive
+if x = y                    // not allowed
+a &+ b                      // allow value overflow
 let val = optValue ?? 1234  // nil coalescing
 
 ```
