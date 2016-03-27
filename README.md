@@ -1017,7 +1017,7 @@ class SomeClass
 
 ```
 
-## String & Weak References
+## Strong & Weak References
 
 * `weak` reference is used whenever it is valid for that reference to become nil at some point during its lifetime; conversely, `unowned` reference is used when it is assumed to **always** have a value because the referenced object(s) never goes out of existence while the reference is in use
 
