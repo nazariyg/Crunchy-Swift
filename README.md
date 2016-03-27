@@ -76,8 +76,6 @@ let val = optValue ?? 1234  // nil coalescing
 
 ## Constants & Variables
 
-* `let` is the initial candidate, `var` is only used as a necessity
-
 ```swift
 
 let constant = 6
