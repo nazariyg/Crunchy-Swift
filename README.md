@@ -87,7 +87,7 @@ variable = 8
 // string interpolation
 let apples = 3
 let oranges = 5
-let fruitSummary = "I have \(apples + oranges) pieces of fruit."  // eval
+let fruitSummary = "I have \(apples + oranges) pieces of fruit."  // evaluation
 print("Heya \(abs(Float(intValue)*2.8))")
 let (x, y) = (1, 2)
 
@@ -108,11 +108,11 @@ let x4 = p2.x, y4 = p2.y
 
 ## String
 
+* string characters represent extended grapheme clusters; an EGC can be composed of multiple Unicode code points
+
 ```swift
 
 let strValue = "Hello, there!"
-// string characters represent extended grapheme clusters
-// an EGC can be composed of multiple Unicode code points
 print(strValue.characters.count)  // expensive (due to UTF-8)
 let charValue:Character = "a"
 for character in "Dog!".characters
