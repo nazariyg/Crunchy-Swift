@@ -1539,3 +1539,326 @@ func != (left:Vector2D, right:Vector2D) -> Bool
 prefix operator +++ {}
 
 ```
+
+
+# Swift 3 & 4
+
+API naming convention optimization: the concluding parts of method names are now constituting the external label of the first parameter, removed redundancy in names.
+
+```swift
+
+addQuadCurve(to: endPoint, controlPoint: controlPoint)
+FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+array.remove(at: 3)
+names.index(of: "Anna")
+animals.insert("Koala", at: 0)
+helloString.appending("world")
+UIColor.blue.withAlphaComponent(0.5)
+Bundle.main
+override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { ... }
+
+```
+
+GCD & Core Graphics
+
+```swift
+
+DispatchQueue.global(qos: .userInitiated).async {
+    // ...
+    DispatchQueue.main.async {
+        // ...
+    }
+}
+
+DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+    // ...
+}
+
+let concurrentPhotoQueue = DispatchQueue(label: "com.queue", attributes: .concurrent)
+
+{
+    guard let context = UIGraphicsGetCurrentContext() else {
+        return
+    }
+    let startAngle: CGFloat = 0.0
+    let endAngle = 2 * CGFloat.pi
+    let strokeWidth: CGFloat = 1.0
+    let center = CGPoint(x: self.frame.midX, y: self.frame.midY)
+    let radius = self.frame.midX - strokeWidth
+    context.setStrokeColor(UIColor.red.cgColor)
+    context.setLineWidth(strokeWidth)
+    context.setFillColor(UIColor.clear.cgColor)
+    context.addArc(
+        center: center,
+        radius: radius,
+        startAngle: startAngle,
+        endAngle: endAngle,
+        clockwise: false)
+    context.drawPath(using: .stroke)
+}
+
+```
+
+Lower camel case replaces upper camel case for enumeration cases.
+
+```swift
+
+UIStatusBarStyle.lightContent
+SKLabelVerticalAlignmentMode.center
+
+```
+
+Modyfying/non-modifying status in method naming.
+
+```swift
+
+let ages = [21, 10, 2]
+ages.sorted()
+var ages = [21, 10, 2]
+ages.sort()
+
+```
+
+Replaces `self.dynamicType` with `Self`.
+
+```swift
+
+struct CustomStruct
+{
+    static func staticMethod () { ... }
+    func instanceMethod ()
+    {
+        Self.staticMethod()
+    }
+}
+let customStruct = CustomStruct()
+customStruct.Self.staticMethod()
+
+```
+
+Adds inline sequences.
+
+```swift
+
+for view in sequence(first: someView, next: { $0.superview })
+{
+    // someView, someView.superview, someView.superview.superview, ...
+}
+
+for x in sequence(first: 0.1, next: { $0*2 }).prefix(while: { $0 < 4 })
+{
+    // 0.1, 0.2, 0.4, 0.8, 1.6, 3.2
+}
+
+```
+
+Floating-point onstant type inference.
+
+```swift
+
+let circumference = 2*.pi*radius
+
+```
+
+Generics type constraints can go beneath the function signature.
+
+```swift
+
+func allItemsMatch
+    <C1:Container, C2:Container>
+    (_ someContainer:C1, _ anotherContainer:C2) -> Bool
+    where C1.Item == C2.Item, C1.Item:Equatable
+{
+    // ...
+}
+
+```
+
+Removes the need for a `characters` array on String, a string conforms to `Sequence` and `Collection` protocols.
+
+```swift
+
+let galaxy = "Milky Way 🐮"
+for char in galaxy
+{
+    print(char)
+}
+
+galaxy.count       // 11
+galaxy.isEmpty     // false
+galaxy.dropFirst() // "ilky Way 🐮"
+String(galaxy.reversed()) // "🐮 yaW ykliM"
+// Filter out any none ASCII characters
+galaxy.filter { char in
+    let isASCII = char.unicodeScalars.reduce(true, { $0 && $1.isASCII })
+    return isASCII
+} // "Milky Way "
+
+```
+
+Adds the `Substring` type for referencing a subsequence on `String`.
+
+```swift
+
+let endIndex = galaxy.index(galaxy.startIndex, offsetBy: 3)
+var milkSubstring:Substring = galaxy[galaxy.startIndex...endIndex]   // "Milk"
+
+```
+
+Sequence based Initialization.
+
+```swift
+
+let nearestStarNames = ["Proxima Centauri", "Alpha Centauri A", "Alpha Centauri B", "Barnard's Star", "Wolf 359"]
+let nearestStarDistances = [4.24, 4.37, 4.37, 5.96, 7.78]
+let starDistanceDict = Dictionary(uniqueKeysWithValues: zip(nearestStarNames, nearestStarDistances))
+// ["Wolf 359": 7.78, "Alpha Centauri B": 4.37, "Proxima Centauri": 4.24, "Alpha Centauri A": 4.37, "Barnard's Star": 5.96]
+
+```
+
+Filtering and mapping for `Dictionary` and `Set` classes.
+
+```swift
+
+let closeStars = starDistanceDict.filter { $0.value < 5.0 }
+let mappedCloseStars = closeStars.mapValues { "\($0)" }
+
+```
+
+Dictionary default values.
+
+```swift
+
+let siriusDistance = mappedCloseStars["Wolf 359", default: "unknown"]
+
+```
+
+Dictionary grouping.
+
+```swift
+
+let starsByFirstLetter = Dictionary(grouping: nearestStarNames) { $0.first! }
+// ["B": ["Barnard's Star"], "A": ["Alpha Centauri A", "Alpha Centauri B"], "W": ["Wolf 359"], "P": ["Proxima Centauri"]]
+
+```
+
+Reserving capacity for `Sequence` and `Dictionary` protocols.
+
+```swift
+
+starWordsCount.capacity  // 6
+starWordsCount.reserveCapacity(20) // reserves at least 20 elements of capacity
+starWordsCount.capacity // 24
+
+```
+
+References key paths on types to get/set the underlying value of an instance.
+
+```swift
+
+let nameKeyPath = \ForceUser.name
+let obiwanName = obiwan[keyPath: nameKeyPath]
+
+```
+
+Multi-line string literals.
+
+```swift
+
+let star = "⭐️"
+let introString = """
+A long time ago in a galaxy far,
+far away....
+
+You could write multi-lined strings
+without "escaping" single quotes.
+
+The indentation of the closing quotes
+   below deside where the text line
+begins.
+
+You can even dynamically add values
+from properties: \(star)
+"""
+print(introString)
+
+```
+
+One-sided ranges.
+
+```swift
+
+var planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+let outsideAsteroidBelt = planets[4...] // Before: planets[4..<planets.endIndex]
+let firstThree = planets[..<4]          // Before: planets[planets.startIndex..<4]
+
+```
+
+Infinite sequence.
+
+```swift
+
+// Infinite range: 1...infinity
+var numberedPlanets = Array(zip(1..., planets))
+print(numberedPlanets) // [(1, "Mercury"), (2, "Venus"), ..., (8, "Neptune")]
+planets.append("Pluto")
+numberedPlanets = Array(zip(1..., planets))
+print(numberedPlanets) // [(1, "Mercury"), (2, "Venus"), ..., (9, "Pluto")]
+
+```
+
+Pattern matching.
+
+```swift
+
+func temperature (planetNumber:Int)
+{
+    switch planetNumber
+    {
+        case ...2: // anything less than or equal to 2
+            print("Too hot")
+        case 4...: // anything greater than or equal to 4
+            print("Too cold")
+        default:
+            print("Justtttt right")
+    }
+}
+
+```
+
+Generic subscripts.
+
+```swift
+
+subscript <Keys:Sequence> (keys:Keys) -> [Value] where Keys.Iterator.Element == Key
+{
+    // ...
+}
+
+let nameAndMoons = earthData[["moons", "name"]]
+let nameAndMoons2 = earthData[Set(["moons", "name"])]
+
+```
+
+Associated type constraints.
+
+```swift
+
+protocol MyProtocol
+{
+    associatedtype Element
+    associatedtype SubSequence : Sequence where SubSequence.Iterator.Element == Iterator.Element
+}
+
+```
+
+Can define a type that conforms to a class as well as a set of protocols.
+
+```swift
+
+class MyClass
+{
+    var delegate:(View & MyProtocol)?
+}
+
+```
