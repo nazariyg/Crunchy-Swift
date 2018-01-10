@@ -1608,7 +1608,7 @@ SKLabelVerticalAlignmentMode.center
 
 ```
 
-Modyfying/non-modifying status in method naming.
+Modifying/non-modifying status in method naming.
 
 ```swift
 
