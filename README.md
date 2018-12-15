@@ -1,4 +1,4 @@
-# Swift 2
+# Swift 2, 3, 4
 
 ## Output
 
@@ -202,10 +202,6 @@ var aDict = [
     "two": 2,
     "three": 3,
 ]
-for str in anArray
-{
-    print(str)
-}
 for (key, value) in aDict
 {
     print("\(key): \(value)")
